@@ -1,0 +1,20 @@
+# Private workspaces: profile, applications, CVs, notes, receipts, auth and reports.
+/workspace/
+/workspace-*/
+/.env
+/.env.*
+!/.env.example
+*.sqlite
+*.sqlite-*
+*.key
+*.pem
+*.log
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+/dist/
+/coverage/
+/.pytest_cache/
+.DS_Store
+Thumbs.db

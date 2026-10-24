@@ -1,0 +1,17 @@
+{
+  "headline": {"text":"Desarrollo de producto e integraciones", "source_refs":["web","integrations"]},
+  "summary": {"text":"Perfil de demostración orientado a construir aplicaciones útiles, conectar sistemas y trabajar con las personas que las utilizan.", "source_refs":["web","integrations","users"]},
+  "sections": [
+    {"title":"Experiencia", "items":[
+      {"text":"Faro Ejemplo · Desarrollo de aplicaciones web con Python y React para apoyar operaciones internas.","source_refs":["web"]},
+      {"text":"Integración de APIs y datos entre sistemas para simplificar tareas manuales.","source_refs":["integrations"]},
+      {"text":"Análisis de necesidades y acompañamiento a usuarios para ajustar las aplicaciones a su trabajo.","source_refs":["users"]}
+    ]},
+    {"title":"Proyectos independientes", "items":[
+      {"text":"Prototipos de asistentes que consultan documentación y muestran las fuentes utilizadas.","source_refs":["product"]}
+    ]},
+    {"title":"Formación", "items":[
+      {"text":"Formación profesional en desarrollo de aplicaciones web.","source_refs":["education"]}
+    ]}
+  ]
+}

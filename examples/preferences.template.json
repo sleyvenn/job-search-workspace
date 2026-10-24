@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "timezone": "Europe/Madrid",
+  "languages_for_applications": ["es"],
+  "salary": {
+    "minimum_eur_gross_annual": null,
+    "strict": true,
+    "unknown": "Pendiente de confirmar; no tratar como cumplido"
+  },
+  "location": {
+    "base": "",
+    "allowed_remote_countries": [],
+    "allowed_hybrid_locations": [],
+    "on_site_exceptions": []
+  },
+  "role_lanes": [],
+  "sources": ["LinkedIn", "InfoJobs", "Employer ATS"],
+  "freelance": {
+    "enabled": false,
+    "minimum_hourly_rate": null,
+    "proposal_budget": null
+  },
+  "submission": {
+    "mode": "review",
+    "daily_max": 3,
+    "authorization": null
+  },
+  "automation": {
+    "enabled": false,
+    "starts_at": null,
+    "ends_at": null
+  }
+}

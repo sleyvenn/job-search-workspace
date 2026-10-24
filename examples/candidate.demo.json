@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "demo": true,
+  "name": "Alex Rivera · Perfil ficticio",
+  "location": "Valencia, España",
+  "email": "alex@example.com",
+  "phone": "",
+  "website": "https://example.com",
+  "languages": [{"language":"Español","level":"Nativo"},{"language":"Inglés","level":"Intermedio"}],
+  "facts": [
+    {"id":"web","category":"experience","scope":"Faro Ejemplo","verified":true,"text":"Desarrollo de aplicaciones web con Python y React para gestionar operaciones internas."},
+    {"id":"integrations","category":"experience","scope":"Faro Ejemplo","verified":true,"text":"Integración de APIs y datos de distintos sistemas para reducir tareas manuales."},
+    {"id":"product","category":"independent","scope":"Proyectos personales de demostración","verified":true,"text":"Prototipos de asistentes que consultan documentación y muestran las fuentes de sus respuestas."},
+    {"id":"users","category":"experience","scope":"Faro Ejemplo","verified":true,"text":"Recogida de necesidades y acompañamiento a usuarios para adaptar las aplicaciones a su trabajo."},
+    {"id":"education","category":"education","scope":"Formación de ejemplo","verified":true,"text":"Formación profesional en desarrollo de aplicaciones web."}
+  ],
+  "unknowns": ["Experiencia con infraestructura como código no confirmada"],
+  "private_names_to_omit": []
+}

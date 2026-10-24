@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#191919">
+  <meta name="robots" content="noindex,nofollow">
+  <title>Acceder · Candidaturas</title>
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="manifest" href="/manifest.webmanifest">
+  <link rel="stylesheet" href="/styles.css">
+  <script src="/icons.js" defer></script>
+  <script src="/login.js" defer></script>
+</head>
+<body class="login-page">
+  <main class="login-card">
+    <div class="login-brand" id="login-icon" aria-hidden="true"></div>
+    <p class="login-eyebrow" id="brand-name">ESPACIO PRIVADO</p>
+    <h1>Candidaturas</h1>
+    <p class="login-intro">Tu búsqueda de empleo, en un solo lugar.</p>
+    <div class="login-access">
+      <h2>Entra con Telegram</h2>
+      <p>Recibirás un código en tu Telegram. No necesitas una contraseña.</p>
+      <button type="button" class="small-button primary login-request" id="request-code">Enviar código a Telegram</button>
+      <form id="code-form" hidden>
+        <label for="code">Código de seis cifras</label>
+        <input id="code" name="code" type="text" inputmode="numeric" autocomplete="one-time-code" pattern="[0-9]{6}" maxlength="6" placeholder="000000" required>
+        <button type="submit" id="verify-code" class="small-button primary">Entrar</button>
+      </form>
+      <p id="login-status" role="status" aria-live="polite"></p>
+    </div>
+    <p class="login-footnote">Acceso privado · La sesión se conserva durante 30 días en este navegador.</p>
+  </main>
+</body>
+</html>

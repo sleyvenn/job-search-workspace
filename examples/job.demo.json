@@ -1,0 +1,18 @@
+{
+  "id": "demo-product-engineer",
+  "external_ids": ["demo:product-engineer"],
+  "company": "Faro Ejemplo",
+  "title": "Product Engineer",
+  "url": "https://example.com/jobs/product-engineer",
+  "source": "Demo ficticia",
+  "location": "España",
+  "mode": "Remoto",
+  "salary": {"label":"38.000–48.000 €/año · ejemplo","minimum":38000,"maximum":48000},
+  "verified_on": "2026-01-15",
+  "published_label": "Datos ficticios de demostración",
+  "why": "El puesto de ejemplo combina desarrollo de producto, integraciones y contacto con usuarios, que figuran en el perfil de demostración.",
+  "strengths": ["Aplicaciones con Python y React", "Integraciones entre sistemas", "Análisis de necesidades con usuarios"],
+  "gaps": ["Confirmar profundidad de la responsabilidad sobre despliegues", "Verificar condiciones reales en una oferta auténtica"],
+  "next_step": "Abrir el CV de ejemplo y revisar cómo se han elegido los hechos del perfil.",
+  "analysis": {"cv_plan":"Destacar aplicaciones e integraciones. Mantener los prototipos personales separados de la experiencia profesional."}
+}
