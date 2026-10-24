@@ -1,4 +1,5 @@
 .env.example
+.gitattributes
 .github/workflows/check.yml
 .gitignore
 AGENTS.md
@@ -40,6 +41,7 @@ examples/preferences.template.json
 lib/__init__.py
 lib/bootstrap.py
 lib/cv.py
+lib/records.py
 lib/workspace.py
 public-files.txt
 requirements-pdf.txt

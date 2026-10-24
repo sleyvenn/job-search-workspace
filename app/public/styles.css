@@ -59,7 +59,7 @@ tr[data-job]:hover{background:var(--hover)}
 .status-prepared{color:#ddd2a9;background:#50452c}
 .status-reserved{color:#dec7e9;background:#49384e}
 .status-blocked{color:#f1c0a7;background:#573a2f}
-.status-apartada,.status-discarded,.status-closed{color:#b8b8b3;background:#343434}
+.status-aside,.status-discarded,.status-closed{color:#b8b8b3;background:#343434}
 .table-link{display:inline-flex;align-items:center;gap:4px;color:#bdbdb8;font-size:14px;text-decoration:underline;text-decoration-color:#62625e}
 .table-link:hover{color:#fff;text-decoration-color:#fff}
 .pdf-cell-button{border:0;background:transparent;color:#c5c5c0;padding:2px 0;display:inline-flex;align-items:center;gap:5px;font-size:13px;text-decoration:underline;text-decoration-color:#60605c;text-underline-offset:3px}

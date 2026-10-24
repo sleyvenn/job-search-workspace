@@ -1,56 +1,56 @@
 <!doctype html>
-<html lang="es">
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="color-scheme" content="dark">
   <meta name="theme-color" content="#191919">
   <link rel="manifest" href="/manifest.webmanifest">
-  <title>Candidaturas</title>
+  <title>Applications</title>
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="/styles.css">
   <script src="/icons.js" defer></script>
   <script src="/app.js" defer></script>
 </head>
 <body>
-  <a class="skip-link" href="#table-region">Saltar a la tabla</a>
+  <a class="skip-link" href="#table-region">Skip to table</a>
   <main class="workspace">
     <header class="page-header">
-      <div class="heading-line"><span class="page-icon" id="page-icon" aria-hidden="true"></span><h1>Candidaturas</h1></div>
-      <p id="profile-name">Mi búsqueda de empleo</p>
-      <p id="demo-notice" class="demo-notice" hidden>Demo con datos ficticios. No se ha enviado ninguna candidatura.</p>
+      <div class="heading-line"><span class="page-icon" id="page-icon" aria-hidden="true"></span><h1>Applications</h1></div>
+      <p id="profile-name">My job search</p>
+      <p id="demo-notice" class="demo-notice" hidden>Demo with fictional data. No applications have been submitted.</p>
     </header>
-    <div class="toolbar" aria-label="Opciones de la tabla">
-      <label class="search-field"><span id="search-icon" aria-hidden="true"></span><input id="search" type="search" placeholder="Buscar empresa o puesto…" aria-label="Buscar candidaturas" autocomplete="off"></label>
-      <label class="status-filter"><span class="sr-only">Filtrar por estado</span><select id="status-filter" aria-label="Filtrar por estado"><option value="sent" selected>Enviadas</option><option value="all">Todas las ofertas</option><option value="prepared">En preparación</option><option value="reserved">Reservadas</option><option value="blocked">Bloqueadas</option><option value="uncertain">Envío incierto</option><option value="apartada">Apartadas</option><option value="discarded">Descartadas</option><option value="closed">Retiradas</option></select></label>
+    <div class="toolbar" aria-label="Table options">
+      <label class="search-field"><span id="search-icon" aria-hidden="true"></span><input id="search" type="search" placeholder="Search company or role…" aria-label="Search applications" autocomplete="off"></label>
+      <label class="status-filter"><span class="sr-only">Filter by status</span><select id="status-filter" aria-label="Filter by status"><option value="sent" selected>Submitted</option><option value="all">All opportunities</option><option value="prepared">In preparation</option><option value="reserved">Reserved</option><option value="blocked">Blocked</option><option value="uncertain">Uncertain</option><option value="aside">Set aside</option><option value="discarded">Discarded</option><option value="closed">Closed</option></select></label>
       <span class="toolbar-space"></span>
-      <a id="daily-report" class="quiet-link" href="/api/report" target="_blank" rel="noopener">Informe ↗</a>
-      <button id="refresh" class="icon-button" aria-label="Actualizar candidaturas" title="Actualizar"></button>
-      <button id="logout" class="icon-button" aria-label="Cerrar sesión" title="Cerrar sesión" hidden></button>
+      <a id="daily-report" class="quiet-link" href="/api/report" target="_blank" rel="noopener">Report ↗</a>
+      <button id="refresh" class="icon-button" aria-label="Refresh applications" title="Refresh"></button>
+      <button id="logout" class="icon-button" aria-label="Sign out" title="Sign out" hidden></button>
     </div>
-    <div id="table-region" class="table-region" tabindex="0" aria-label="Tabla de candidaturas">
+    <div id="table-region" class="table-region" tabindex="0" aria-label="Applications table">
       <table>
-        <caption class="sr-only">Puesto, empresa, estado, fecha, enlace a la oferta y currículum de cada candidatura.</caption>
+        <caption class="sr-only">Role, company, status, date, job link and CV for each application.</caption>
         <colgroup><col class="col-title"><col class="col-company"><col class="col-status"><col class="col-date"><col class="col-offer"><col class="col-pdf"></colgroup>
         <thead><tr>
-          <th scope="col" data-column="title"><button data-sort="title"><span class="property-icon" aria-hidden="true">Aa</span>Puesto<span class="sort-arrow"></span></button></th>
-          <th scope="col" data-column="company"><button data-sort="company"><span class="property-icon" aria-hidden="true">Aa</span>Empresa<span class="sort-arrow"></span></button></th>
-          <th scope="col" data-column="status"><button data-sort="status"><span class="property-icon" id="status-icon" aria-hidden="true"></span>Estado<span class="sort-arrow"></span></button></th>
-          <th scope="col" data-column="date"><button data-sort="date"><span class="property-icon" id="date-icon" aria-hidden="true"></span>Fecha<span class="sort-arrow"></span></button></th>
-          <th scope="col"><span class="plain-heading">Oferta</span></th>
+          <th scope="col" data-column="title"><button data-sort="title"><span class="property-icon" aria-hidden="true">Aa</span>Role<span class="sort-arrow"></span></button></th>
+          <th scope="col" data-column="company"><button data-sort="company"><span class="property-icon" aria-hidden="true">Aa</span>Company<span class="sort-arrow"></span></button></th>
+          <th scope="col" data-column="status"><button data-sort="status"><span class="property-icon" id="status-icon" aria-hidden="true"></span>Status<span class="sort-arrow"></span></button></th>
+          <th scope="col" data-column="date"><button data-sort="date"><span class="property-icon" id="date-icon" aria-hidden="true"></span>Date<span class="sort-arrow"></span></button></th>
+          <th scope="col"><span class="plain-heading">Job</span></th>
           <th scope="col"><span class="plain-heading">CV</span></th>
         </tr></thead>
-        <tbody id="rows"><tr><td colspan="6" class="empty-cell">Cargando candidaturas…</td></tr></tbody>
+        <tbody id="rows"><tr><td colspan="6" class="empty-cell">Loading applications…</td></tr></tbody>
       </table>
     </div>
     <footer class="table-footer"><span id="row-count" aria-live="polite"></span><span id="updated-at"></span></footer>
   </main>
   <dialog id="job-dialog" class="job-dialog" aria-labelledby="job-title">
-    <header class="modal-bar"><span>Ficha de la candidatura</span><button class="icon-button" data-close="job" aria-label="Cerrar ficha"></button></header>
+    <header class="modal-bar"><span>Application details</span><button class="icon-button" data-close="job" aria-label="Close details"></button></header>
     <div id="job-content" class="job-content"></div>
   </dialog>
   <dialog id="pdf-dialog" class="pdf-dialog" aria-labelledby="pdf-title">
-    <header class="pdf-header"><div><h2 id="pdf-title">Currículum</h2><p id="pdf-caption"></p></div><div class="pdf-actions"><a id="pdf-external" class="quiet-link" target="_blank" rel="noopener">Abrir aparte ↗</a><a id="pdf-download" class="small-button" download>Descargar</a><button class="icon-button" data-close="pdf" aria-label="Cerrar PDF"></button></div></header>
+    <header class="pdf-header"><div><h2 id="pdf-title">CV</h2><p id="pdf-caption"></p></div><div class="pdf-actions"><a id="pdf-external" class="quiet-link" target="_blank" rel="noopener">Open separately ↗</a><a id="pdf-download" class="small-button" download>Download</a><button class="icon-button" data-close="pdf" aria-label="Close PDF"></button></div></header>
     <div id="pdf-content" class="pdf-content"></div>
   </dialog>
   <div id="toast" class="toast" role="status" aria-live="polite"></div>

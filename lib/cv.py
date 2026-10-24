@@ -12,16 +12,16 @@ def validate_content(candidate, content):
     claims=[content.get('headline'), content.get('summary')]
     for section in content.get('sections',[]):
         if not section.get('title') or not section.get('items'):
-            raise WorkspaceError('Cada sección necesita título y contenido.')
+            raise WorkspaceError('Each section needs a title and content.')
         claims.extend(section['items'])
     if not claims or not content.get('sections'):
-        raise WorkspaceError('Falta contenido del currículum.')
+        raise WorkspaceError('CV content is missing.')
     for claim in claims:
         if not isinstance(claim,dict) or not isinstance(claim.get('text'),str) or not claim['text'].strip():
-            raise WorkspaceError('Cada afirmación necesita texto y referencias al perfil.')
+            raise WorkspaceError('Each claim needs text and references to profile facts.')
         refs=claim.get('source_refs',[])
         if not refs or any(ref not in facts for ref in refs):
-            raise WorkspaceError('El CV cita hechos no confirmados o referencias inexistentes.')
+            raise WorkspaceError('The CV references unconfirmed or missing facts.')
     return len(claims)
 
 
@@ -34,9 +34,9 @@ def render(candidate, content, destination):
         from reportlab.lib.styles import ParagraphStyle
         from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, KeepTogether
     except ImportError:
-        raise WorkspaceError('Instala el generador de PDF: python -m pip install -r requirements-pdf.txt') from None
+        raise WorkspaceError('Install the PDF generator: python -m pip install -r requirements-pdf.txt') from None
     if not candidate.get('name'):
-        raise WorkspaceError('Completa el nombre real antes de crear el CV.')
+        raise WorkspaceError('Enter the actual candidate name before creating a CV.')
     styles={
         'name':ParagraphStyle('name',fontName='Helvetica-Bold',fontSize=23,leading=27,textColor=colors.HexColor('#172d37'),spaceAfter=6),
         'headline':ParagraphStyle('headline',fontName='Helvetica-Bold',fontSize=11,leading=15,spaceAfter=7),
@@ -54,7 +54,7 @@ def render(candidate, content, destination):
         for item in section['items']:
             story.append(Paragraph(text(item['text']),styles['body']))
     document=SimpleDocTemplate(str(destination),pagesize=A4,leftMargin=43,rightMargin=43,topMargin=39,bottomMargin=39,
-                               title=candidate['name']+' — '+content['headline']['text'],author=candidate['name'])
+                               title=candidate['name']+' - '+content['headline']['text'],author=candidate['name'])
     document.build(story)
 
 

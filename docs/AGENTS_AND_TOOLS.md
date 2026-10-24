@@ -1,24 +1,24 @@
-# Compatibilidad con agentes
+# Agent compatibility
 
-El contrato común es el sistema de archivos, los comandos de `run.py` y las instrucciones de `AGENTS.md`. No se llama a una API de modelo desde el backend.
+The shared contract is the filesystem, `run.py` commands and `AGENTS.md`. The backend does not call a model API.
 
-| Entorno | Cómo empezar | Qué debe estar disponible |
+| Environment | Starting point | Required capabilities |
 | --- | --- | --- |
-| Codex con acceso al repositorio | Abrir la carpeta y usar START_HERE.md; AGENTS.md contiene el contexto | Terminal/Python, acceso web y navegador autorizado para enviar |
-| Claude Code | Abrir la carpeta; CLAUDE.md remite a AGENTS.md | Las mismas capacidades; el acceso al navegador se configura en ese entorno |
-| Otro agente con herramientas | Pedir expresamente que lea AGENTS.md y START_HERE.md | Archivos, ejecución de comandos y las capacidades externas necesarias |
-| Chat sin acceso a archivos o herramientas | Puede ayudar a redactar el perfil y evaluar ofertas aportadas | No puede operar este repositorio ni acreditar envíos por sí solo |
+| Codex with repository access | Open the folder and use START_HERE.md; AGENTS.md provides context | Terminal/Python, web access and an authorized browser for submissions |
+| Claude Code | Open the folder; CLAUDE.md imports AGENTS.md | The same capabilities; configure browser access in that environment |
+| Another tool-enabled agent | Explicitly ask it to read AGENTS.md and START_HERE.md | Files, command execution and the necessary external tools |
+| Chat without files or tools | Can help draft a profile or evaluate supplied job descriptions | Cannot operate this repository or verify submissions by itself |
 
-Los modelos pueden diferir al seleccionar ofertas o redactar. Los comandos mantienen el formato de los registros, los hashes de los documentos y la detección de duplicados; no garantizan que todos los agentes razonen igual.
+Models can differ in job selection and writing. The commands keep records consistent, hash documents and detect duplicates; they do not guarantee identical reasoning.
 
-## Comprobación inicial
+## Initial capability check
 
-1. Ejecutar `python run.py doctor` y comprobar la carpeta privada.
-2. Consultar una oferta actual por una herramienta disponible y verificar la ficha completa.
-3. Comprobar si existe una sesión autorizada en el portal de destino antes de intentar un envío.
-4. Abrir el PDF o renderizar sus páginas. Si falta Poppler, usar un visor disponible; no dar por revisado un archivo que no se ha visto.
-5. Registrar bloqueos concretos y continuar con pasos independientes.
+1. Run `python run.py doctor` and check the private folder.
+2. Research a current opening using an available tool and verify the complete posting.
+3. Check for an authorized session on the destination portal before attempting submission.
+4. Open the PDF or render its pages. If Poppler is unavailable, use another viewer; do not claim to have reviewed an unseen document.
+5. Record specific blockers and continue with independent work.
 
-No se redistribuyen sesiones de navegador, plugins comerciales ni las skills de terceros que pudiera usar una instalación. El flujo básico está documentado aquí y el generador de PDF es propio; las skills de análisis o CV instaladas por el usuario pueden complementarlo.
+Browser sessions, commercial plugins and third-party skills are not redistributed. The core workflow is documented here and the PDF generator is included. Skills already installed by a user can complement it.
 
-Referencias oficiales: [instrucciones AGENTS.md en Codex](https://learn.chatgpt.com/docs/agent-configuration/agents-md), [memoria e instrucciones de Claude Code](https://code.claude.com/docs/en/memory). La compatibilidad de estructura está documentada; una ejecución completa con cada entorno debe probarse antes de anunciarla como verificada.
+Official references: [Codex AGENTS.md instructions](https://learn.chatgpt.com/docs/agent-configuration/agents-md), [Claude Code memory and instructions](https://code.claude.com/docs/en/memory). The structure follows these conventions; test a complete workflow in each environment before claiming verified support.

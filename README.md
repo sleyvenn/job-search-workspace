@@ -1,110 +1,106 @@
 # Job Search Workspace
 
-**Dale este repositorio a tu agente y pídele que monte tu búsqueda de empleo.** Tendrás una app con ofertas, motivos, CV específicos, decisiones y resultados en una tabla sencilla.
+**Give this repository to your agent and ask it to set up your job search.** Keep job opportunities, tailored CVs, decisions and application outcomes in a simple table.
 
-## Úsalo con una frase
+## Start with one sentence
 
-Pega el enlace de este repositorio en Codex, Claude Code u otro agente con acceso a archivos y terminal, y dile:
+Share this repository with Codex, Claude Code or another agent with file and terminal access, and say:
 
-> Descarga este repositorio y úsalo como base para mi búsqueda de empleo. Monta la app, pregúntame por mi perfil y mis filtros, y empieza preparando ofertas y CV para que los revise.
+> Download this repository and use it as the base for my job search. Set up the app, ask me about my experience and preferences, and start preparing job opportunities and tailored CVs for me to review.
 
-El agente se encarga del arranque y la configuración siguiendo [AGENTS.md](AGENTS.md). Tú aportas tu experiencia, decides los filtros y revisas los resultados. No necesitas conocer los comandos del proyecto.
+Your agent handles setup using [AGENTS.md](AGENTS.md). You provide your experience, choose your filters and review the results. You do not need to learn the project commands.
 
-La app guarda el estado y los documentos. Tu agente busca y analiza las ofertas utilizando las herramientas y cuentas a las que tú le des acceso. El repositorio no incluye un proveedor de IA obligatorio ni credenciales de portales.
+The app stores your records and documents. Your agent finds and evaluates jobs using the tools and accounts you authorize. No particular AI provider or job-board credentials are bundled with this repository.
 
-![Demo con datos ficticios](docs/demo.png)
+![Demo with fictional data](docs/demo.png)
 
-## Ver la demo
+## Try the demo
 
-También puedes decirle: **«Arranca primero la demo de este repo para que la vea»**.
+You can also say: **“Start the demo from this repository so I can see it first.”**
 
-Para quien prefiera hacerlo manualmente:
-
-Necesitas **Python 3.11 o posterior**. La app y la demo no requieren instalar paquetes.
+For manual setup, you need **Python 3.11 or later**. The app and demo require no additional packages.
 
 ```sh
 python run.py demo
 ```
 
-Abre [localhost:8765](http://127.0.0.1:8765). Hay tres ofertas ficticias, sus motivos y un CV de ejemplo. Ninguna candidatura de la demo se ha enviado. Pulsa una fila para ver la ficha y **PDF** para abrir el currículum.
+Open [localhost:8765](http://127.0.0.1:8765). The demo contains three fictional jobs, their assessment and a sample CV. No demo applications have been submitted. Select a row to open its details, or **PDF** to view the CV.
 
-La vista previa como imagen requiere Poppler (`pdftoppm`). Si falta, puedes abrir o descargar el PDF original. `python run.py doctor` muestra las capacidades disponibles.
+Image previews require Poppler (`pdftoppm`). Without it, you can still open or download the original PDF. Run `python run.py doctor` to check available capabilities.
 
-## Configuración manual opcional
+## Optional manual setup
 
 ```sh
 python run.py init
 python run.py serve
 ```
 
-Completa `workspace/candidate.json` y `workspace/preferences.json`, o dale a tu agente el prompt de [START_HERE.md](START_HERE.md). El perfil distingue hechos confirmados, ámbitos de experiencia y datos pendientes; los requisitos de una oferta no se convierten automáticamente en experiencia.
+Complete `workspace/candidate.json` and `workspace/preferences.json`, or give your agent the prompt in [START_HERE.md](START_HERE.md). The profile separates confirmed facts, scopes of experience and unknowns. Job requirements never become candidate experience automatically.
 
-Cada instalación tiene su propio `workspace/`, excluido de Git. La demo usa `workspace-demo/`. Los ejemplos públicos son ficticios.
+Each installation has its own private `workspace/`, excluded from Git. The demo uses `workspace-demo/`. All distributed examples are fictional.
 
-## Dárselo a un agente
+## Continue with your agent
 
-Abre esta carpeta con Codex, Claude Code u otro agente que pueda leer archivos y ejecutar Python, y pega:
+Open this folder with an agent that can read files and execute Python, and say:
 
-> Lee AGENTS.md y START_HERE.md. Configura este repositorio como mi espacio de búsqueda de empleo. Comprueba tus herramientas, recoge mi experiencia y mis filtros sin inventar datos, prepara una primera selección y un CV por oferta. Deja las candidaturas listas para revisar; no las envíes hasta tener mi autorización.
+> Read AGENTS.md and START_HERE.md. Set up this repository as my job-search workspace. Check your tools, collect my experience and preferences without inventing facts, prepare an initial shortlist and tailor a CV for each selected job. Leave applications ready for review; do not submit them without my authorization.
 
-El mismo estado se puede continuar con otro agente. [Compatibilidad y límites](docs/AGENTS_AND_TOOLS.md) explica qué necesita cada entorno. El acceso al navegador, la sesión de los portales y la programación diaria se configuran en el agente elegido.
+Another agent can continue from the same records. [Compatibility and limitations](docs/AGENTS_AND_TOOLS.md) explains the capabilities required. Browser access, portal sessions and daily scheduling belong to the agent environment you choose.
 
-## Qué incluye la primera versión
+## What is included
 
-- Tabla con búsqueda, filtros, fecha, estado, oferta enlazada y PDF; fichas con motivos, dudas, adaptación y notas.
-- CLI para registrar ofertas, CV, decisiones, autorizaciones, envíos observados e informes.
-- Detección de duplicados por ID, URL canónica, identificadores externos y empresa/puesto/ubicación.
-- PDF versionados con SHA-256. Una versión nueva no cambia el documento de una candidatura anterior.
-- Generador opcional de CV con referencias a hechos confirmados del perfil.
-- Estados separados para preparado, reservado, bloqueado, envío incierto y envío confirmado.
-- Acceso privado por Telegram si se aloja detrás de HTTPS; uso local sin cuentas adicionales.
-- Pruebas del flujo, integridad de documentos, acceso y exportación pública.
+- A searchable table with status filters, dates, job links and PDFs; detail dialogs with reasoning, gaps, tailoring and notes.
+- Commands to record opportunities, CVs, decisions, authorizations, observed submissions and reports.
+- Duplicate detection by ID, canonical URL, external identifiers and company/title/location.
+- Versioned PDFs with SHA-256 hashes. A new draft never replaces a previously submitted document.
+- An optional CV generator that links claims to confirmed profile facts.
+- Separate states for preparation, reserved jobs, blockers, uncertain submissions and confirmed applications.
+- Optional private access through Telegram when hosted behind HTTPS; no extra account for local use.
+- Tests for the workflow, document integrity, access controls and source exports.
 
-## Flujo de trabajo
+## Workflow
 
-1. El usuario confirma perfil, filtros y alcance.
-2. El agente consulta fuentes actuales y lee cada oferta completa.
-3. `add-job` registra el análisis y rechaza duplicados.
-4. `create-cv` o `attach-cv` prepara una versión específica; se revisan todas sus páginas.
-5. Se registra una autorización real con `approve`; `check-ready` comprueba el registro antes del formulario.
-6. El agente usa el formulario oficial. `record-application` guarda después la confirmación, el PDF exacto y el justificante.
-7. `report` produce un informe de los registros actuales.
+1. The user confirms their profile, preferences and scope.
+2. The agent checks current sources and reads each full job description.
+3. `add-job` records the assessment and rejects duplicates.
+4. `create-cv` or `attach-cv` creates a specific version; every page is reviewed.
+5. `approve` records a real user authorization, and `check-ready` checks the record before the application form.
+6. The agent uses the official form. Afterwards, `record-application` stores the observed confirmation, exact PDF and receipt.
+7. `report` summarizes the current records.
 
-Los comandos no envían formularios por sí solos. Una referencia válida a un hecho no demuestra que su paráfrasis sea fiel: el agente y el usuario siguen revisando el contenido. Consulta el [procedimiento completo](docs/WORKFLOW.md).
+The commands do not submit forms themselves. A valid source reference cannot prove that a paraphrase is accurate: the agent and user still review the content. See the [full workflow](docs/WORKFLOW.md).
 
-## Crear PDF
+## Generate a CV
 
 ```sh
 python -m pip install -r requirements-pdf.txt
 python run.py --workspace workspace-example init --profile examples/candidate.demo.json --preferences examples/preferences.template.json
 python run.py --workspace workspace-example add-job --file examples/job.demo.json
-python run.py --workspace workspace-example create-cv --job demo-product-engineer --file examples/cv.demo.json --why "Destacar aplicaciones e integraciones" --language es
+python run.py --workspace workspace-example create-cv --job demo-product-engineer --file examples/cv.demo.json --why "Highlight applications and integrations" --language en
 ```
 
-Esta secuencia crea un espacio de ejemplo separado. No copies el perfil de muestra como experiencia real.
+This creates a separate example workspace. Do not treat the fictional profile as your own experience. You can also register a PDF from another tool with `attach-cv`; the generator is optional.
 
-También puedes registrar un PDF generado por otra herramienta mediante `attach-cv`. El generador es opcional; el formato de datos y el registro son compartidos.
+## Documentation
 
-## Documentación
+- [Start with an agent](START_HERE.md)
+- [Workflow and commands](docs/WORKFLOW.md)
+- [Data model](docs/DATA_MODEL.md)
+- [Codex, Claude and other environments](docs/AGENTS_AND_TOOLS.md)
+- [Job sources, salary and freelance work](docs/JOB_SOURCES.md)
+- [Privacy and repository exports](docs/PRIVACY.md)
+- [Private hosting and Telegram access](docs/DEPLOYMENT.md)
+- [Product decisions and next steps](docs/PRODUCT.md)
 
-- [Empezar con un agente](START_HERE.md)
-- [Flujo y comandos](docs/WORKFLOW.md)
-- [Formato de datos](docs/DATA_MODEL.md)
-- [Codex, Claude y otros entornos](docs/AGENTS_AND_TOOLS.md)
-- [Portales, salario y freelance](docs/JOB_SOURCES.md)
-- [Privacidad y publicación del repositorio](docs/PRIVACY.md)
-- [Alojamiento privado y acceso por Telegram](docs/DEPLOYMENT.md)
-- [Decisiones de producto y siguientes pasos](docs/PRODUCT.md)
-
-## Desarrollo
+## Development
 
 ```sh
 python -m unittest discover -s tests -v
 python scripts/audit_export.py
 ```
 
-Backend Python con biblioteca estándar, frontend HTML/CSS/JavaScript, datos JSON y sesiones SQLite. Sin compilación del frontend. Interfaz inicial en español. Iconos oficiales de [Phosphor](https://github.com/phosphor-icons/core), incluidos localmente con su licencia.
+Python standard-library backend, HTML/CSS/JavaScript frontend, JSON records and SQLite sessions. No frontend build step. The interface, documentation and examples are in English; individual application documents can use the language requested by the user. Official [Phosphor](https://github.com/phosphor-icons/core) icons are included locally with their license.
 
-Esta versión es para una persona por instalación. No incluye un SaaS multiusuario, un navegador remoto, un servicio central de búsqueda ni un planificador autónomo. Puede funcionar con distintos agentes cuando dispongan de las capacidades necesarias; no se ha probado una sesión completa en todos ellos.
+This version supports one person per installation. It does not provide a multi-user SaaS, remote browser, central job-search service or autonomous scheduler. Different agents can use it when they have the necessary tools; a complete workflow has not been tested in every agent environment.
 
-Licencia [MIT](LICENSE). Las licencias de terceros se conservan junto a sus archivos.
+[MIT license](LICENSE). Third-party licenses remain alongside their files.

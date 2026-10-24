@@ -1,20 +1,20 @@
-# Fuentes de ofertas
+# Job sources
 
-El agente utiliza sus conectores y navegador disponibles. Este repositorio no incluye scrapers, cuentas ni una integración API con estos portales. Respeta las condiciones del servicio, el acceso disponible y los límites del usuario.
+The agent uses its available connectors and browser. This repository does not include scrapers, accounts or API integrations for these services. Respect service terms, available access and the user's limits.
 
-| Fuente | Uso propuesto | Comprobaciones |
+| Source | Suggested use | Checks |
 | --- | --- | --- |
-| LinkedIn | Descubrir empleo por puesto, ubicación y modalidad | En búsquedas que admitan `f_TPR`, `r86400` filtra 24 horas y `r3600` una hora. Revisa la fecha real y la ficha; el filtro no basta |
-| InfoJobs | Ampliar empleo en España, especialmente ofertas en español | Comprueba ubicación, teletrabajo/híbrido, contrato y salario publicados; usa sus filtros y alertas disponibles |
-| Web de empresa o ATS | Leer la vacante y presentar por su destino oficial | Confirma que sigue abierta y que el enlace corresponde a esa empresa y puesto |
-| Upwork | Proyectos freelance cuando el usuario los quiera | Define tarifa, moneda, tipo de proyecto y presupuesto de propuestas por separado |
+| LinkedIn | Discover roles by title, location and work arrangement | Where the search supports `f_TPR`, use `r86400` for 24 hours and `r3600` for one hour. Verify the actual date and full posting |
+| InfoJobs | Broaden employment searches in Spain, especially Spanish-language roles | Check location, remote/hybrid terms, contract and published salary; use available filters and alerts |
+| Employer website or ATS | Read the full vacancy and apply through its official destination | Confirm it remains open and matches the employer and role |
+| Upwork | Freelance projects when the user wants them | Define rate, currency, project type and proposal budget separately |
 
-Para empezar, combina pocas búsquedas acordadas con el usuario. No cambies todos sus puestos preferidos a IA por defecto. Una nueva familia de puestos debe apoyarse en experiencia o intereses confirmados.
+Start with a small set of searches agreed with the user. Do not turn every target role into an AI role by default. New role families should reflect confirmed experience or interests.
 
-En remoto, verifica desde qué países contratan y qué zona horaria requieren. «Remote» no significa automáticamente contratación desde cualquier lugar. Un salario desconocido queda pendiente; un máximo inferior al mínimo se descarta. Una excepción de movilidad o presencialidad para una oferta no autoriza todas las demás.
+For remote jobs, verify eligible hiring countries and time-zone requirements. “Remote” does not automatically mean worldwide hiring. Unknown salary stays conditional; a published maximum below the user's minimum is excluded. A location exception for one job does not authorize every other on-site role.
 
-## Freelance y costes
+## Freelance work and costs
 
-Upwork usa Connects para muchas propuestas; la cantidad puede variar. No compres Connects, pagues suscripciones ni consumas presupuesto de propuestas por inferencia. Pide un presupuesto explícito y comprueba las condiciones vigentes antes de usarlo. Una tarifa facturada no es equivalente a un sueldo bruto anual.
+Many Upwork proposals use Connects, with requirements that can vary. Do not buy Connects, purchase subscriptions or spend a proposal budget by inference. Obtain an explicit budget and check current terms before using it. A freelance billing rate is not equivalent to a gross annual salary.
 
-Fuentes oficiales: [preferencias de empleo en InfoJobs](https://orientacion-laboral.infojobs.net/manten-tus-preferencias-de-empleo-actualizadas-en-infojobs-que-buscas-ahora/), [teletrabajo en InfoJobs](https://orientacion-laboral.infojobs.net/como-puedo-encontrar-ofertas-de-teletrabajo-en-infojobs/), [Connects de Upwork](https://support.upwork.com/hc/en-us/articles/211062898-Understanding-and-using-Connects), [presentar una propuesta en Upwork](https://support.upwork.com/hc/en-us/articles/211062998-How-to-submit-a-proposal-on-Upwork).
+Official sources: [InfoJobs job preferences](https://orientacion-laboral.infojobs.net/manten-tus-preferencias-de-empleo-actualizadas-en-infojobs-que-buscas-ahora/), [remote work on InfoJobs](https://orientacion-laboral.infojobs.net/como-puedo-encontrar-ofertas-de-teletrabajo-en-infojobs/), [Upwork Connects](https://support.upwork.com/hc/en-us/articles/211062898-Understanding-and-using-Connects), [submitting an Upwork proposal](https://support.upwork.com/hc/en-us/articles/211062998-How-to-submit-a-proposal-on-Upwork). The InfoJobs articles are in Spanish.

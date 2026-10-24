@@ -1,21 +1,21 @@
-# Una app que monta y utiliza tu agente
+# An app your agent sets up and uses
 
-La propuesta es sencilla: pasar el repositorio a un agente y decirle «descárgalo y úsalo como base para mi búsqueda de empleo». El agente hace el arranque, recoge el perfil y los filtros y trabaja sobre un espacio persistente. La persona ve una tabla, abre la ficha o el PDF y toma decisiones.
+The idea is simple: give an agent this repository and say “download it and use it as the base for my job search.” The agent handles startup, collects the profile and preferences, and works in a persistent workspace. The person sees a table, opens a job or PDF, and makes decisions.
 
-El producto distribuido es ese punto de partida reutilizable: código, datos con un formato común e instrucciones operativas. Cada persona aporta su agente y sus cuentas. Un cambio de agente puede continuar desde los registros sin reconstruir la conversación completa.
+The product is that reusable starting point: code, a shared data format and operating instructions. Each person brings their own agent and accounts. A different agent can continue from the records without reconstructing the entire conversation.
 
-## Alcance del MVP
+## MVP scope
 
-- Arranque local por el agente, sin un proveedor de modelos obligatorio.
-- Tabla, ficha, PDF, enlace, fecha, motivos, dudas, notas y estado.
-- CV específicos con hechos confirmados y versiones conservadas.
-- Duplicados, bloqueos y resultados inciertos visibles.
-- Instrucciones comunes para buscar, preparar, enviar con autorización y registrar pruebas.
+- Agent-managed local setup with no required model provider.
+- A table, job dialog, PDF, link, date, reasons, gaps, notes and status.
+- Tailored CVs based on confirmed facts, with preserved versions.
+- Visible duplicates, blockers and uncertain outcomes.
+- Shared instructions for research, preparation, authorized submissions and evidence.
 
-La siguiente validación útil es que una persona distinta lo descargue con otro agente y consiga montar su espacio sin ayuda del autor. Registrar dónde se atasca aporta más que añadir pantallas o un sistema de cuentas.
+The next useful validation is for another person to download it with another agent and set up a workspace without the author's help. Recording where that process fails is more valuable than adding screens or an account system.
 
-## Mostrarlo como proyecto
+## Presenting the project
 
-El repositorio y la demo ficticia permiten explicar el flujo sin publicar candidaturas reales. Una web personal puede enlazar el código, enseñar la tabla y contar el problema que resuelve: mantener criterio, contexto y trazabilidad en una búsqueda asistida por agentes. La instalación personal permanece privada.
+The repository and fictional demo explain the workflow without exposing real applications. A personal website can link the code, show the table and describe the problem it solves: retaining judgment, context and traceability in an agent-assisted job search. The personal installation remains private.
 
-Antes de anunciar soporte verificado para un agente, ejecutar una prueba completa con ese entorno y documentar sus herramientas. Antes de prometer búsquedas desatendidas, comprobar el planificador, la persistencia, las sesiones y las intervenciones de cada portal.
+Before claiming verified support for an agent, test a complete workflow in that environment and document its tools. Before promising unattended searches, verify the scheduler, persistence, sessions and portal-specific interventions.

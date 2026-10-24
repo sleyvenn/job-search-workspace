@@ -21,9 +21,9 @@ def health(port):
 def start(workspace, base, preferred_port=8765):
     base=Path(base).resolve()
     if os.environ.get('WORKSPACE_PUBLIC_URL'):
-        raise WorkspaceError('bootstrap arranca una app local. Para el alojamiento HTTPS configurado, usa serve y docs/DEPLOYMENT.md.')
+        raise WorkspaceError('bootstrap starts a local app. For the configured HTTPS deployment, use serve and docs/DEPLOYMENT.md.')
     if not 1024 <= preferred_port <= 65516:
-        raise WorkspaceError('El puerto de arranque debe estar entre 1024 y 65516.')
+        raise WorkspaceError('The starting port must be between 1024 and 65516.')
     initialized=False
     if not (workspace.root/'state.json').exists():
         workspace.initialize(read(base/'examples/candidate.template.json'),read(base/'examples/preferences.template.json'))
@@ -46,13 +46,13 @@ def start(workspace, base, preferred_port=8765):
             if current.get('app')=='job-search-workspace-v1' and current.get('workspace')==str(workspace.root):
                 result={'url':f'http://127.0.0.1:{port}','pid':process.pid,'workspace':str(workspace.root),
                         'initialized':initialized,'reused':False,
-                        'next':'El agente completa el perfil y los filtros con el usuario; la app ya está abierta para trabajar.'}
+                        'next':'The app is running. The agent should open the URL and complete the profile and preferences with the user.'}
                 save(logs/'server.json',result)
                 return result
             if process.poll() is not None:
-                raise WorkspaceError('El servidor no ha arrancado. Revisa runtime/server.err.log dentro del espacio privado.')
+                raise WorkspaceError('The server did not start. Check runtime/server.err.log inside the private workspace.')
             time.sleep(0.15)
         process.terminate()
         process.wait(timeout=5)
-        raise WorkspaceError('El servidor no respondió a tiempo. Revisa los registros privados.')
-    raise WorkspaceError('No hay un puerto disponible en el rango de arranque.')
+        raise WorkspaceError('The server did not respond in time. Check the private logs.')
+    raise WorkspaceError('No port is available in the startup range.')

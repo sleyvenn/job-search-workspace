@@ -1,22 +1,22 @@
-# Uso local y alojamiento privado
+# Local use and private hosting
 
-La entrada normal es pedir al agente que ejecute `python run.py bootstrap` y abra la URL devuelta. Arranca en segundo plano, conserva los datos y reutiliza un servidor del mismo espacio cuando lo encuentra. Los registros están en `workspace/runtime/`. El equipo debe estar encendido; este comando no instala un servicio de inicio automático.
+The normal entry point is to ask your agent to run `python run.py bootstrap` and open the returned URL. It starts in the background, preserves records and reuses a matching workspace server. Logs are stored in `workspace/runtime/`. The computer must remain on; this command does not install a startup service.
 
-Para detenerlo, comprueba que el PID de `runtime/server.json` sigue correspondiendo a `run.py` y a ese espacio antes de terminar el proceso. Para volver a abrirlo, repite `bootstrap`.
+To stop it, verify that the PID in `runtime/server.json` still belongs to `run.py` and that workspace before terminating the process. Run `bootstrap` again to reopen it.
 
-## Servidor propio, opcional
+## Optional self-hosting
 
-Esta versión admite **una persona y un destinatario de Telegram por instalación**. Para alojarla, el operador necesita Python 3.11+, almacenamiento persistente y un proxy HTTPS que reenvíe al puerto local. No expongas el servidor de desarrollo directamente a Internet.
+This version supports **one person and one Telegram recipient per installation**. Hosting requires Python 3.11+, persistent storage and an HTTPS reverse proxy forwarding to the loopback port. Do not expose the development server directly to the internet.
 
-1. Inicializa un espacio privado fuera de una carpeta pública y limita sus permisos.
-2. Configura un bot propio de Telegram y su destinatario. Copia `.env.example` a `.env`, o usa variables del servicio. Nunca incluyas el token en Git, capturas o comandos compartidos.
-3. Define `WORKSPACE_PUBLIC_URL=https://tu-subdominio.example`, `WORKSPACE_DIR`, `TELEGRAM_BOT_TOKEN` y `TELEGRAM_CHAT_ID`. La URL debe ser un origen HTTPS, sin ruta.
-4. Ejecuta `python run.py serve --port 8765` mediante el gestor de servicios del sistema. `bootstrap` es solo para el uso local.
-5. Configura el proxy para conservar el Host público, limitar peticiones y no registrar cuerpos con códigos. Restringe el acceso directo al puerto local.
-6. Comprueba desde una sesión sin autenticar que documentos, notas, informes y API están protegidos. Prueba después un código real con autorización del titular del bot.
+1. Initialize a private workspace outside any public directory and restrict its filesystem permissions.
+2. Configure your own Telegram bot and recipient. Copy `.env.example` to `.env`, or use service environment variables. Never include the token in Git, screenshots or shared commands.
+3. Set `WORKSPACE_PUBLIC_URL=https://your-subdomain.example`, `WORKSPACE_DIR`, `TELEGRAM_BOT_TOKEN` and `TELEGRAM_CHAT_ID`. The URL must be an HTTPS origin without a path.
+4. Run `python run.py serve --port 8765` through the operating system's service manager. `bootstrap` is for local use only.
+5. Configure the proxy to preserve the public Host, rate-limit requests and avoid logging bodies containing codes. Restrict direct access to the loopback port.
+6. Verify from a signed-out session that documents, notes, reports and API data require authentication. Then test a real code with the bot owner's authorization.
 
-Cuando hay URL pública configurada, la app exige credenciales de Telegram; no abre el contenido si faltan. Los códigos duran cinco minutos, son de un solo uso y tienen límites de peticiones e intentos. La cookie de sesión usa Secure, HttpOnly y SameSite=Strict. Las sesiones duran hasta 30 días y se pueden cerrar desde la interfaz.
+When a public URL is configured, Telegram credentials are required; missing configuration does not expose content. Codes expire after five minutes, are single-use and have request and attempt limits. The session cookie uses Secure, HttpOnly and SameSite=Strict. Sessions last up to 30 days and can be closed from the interface.
 
-`reviews/auth.sqlite` y `reviews/auth.key` son privados. Las pruebas automáticas simulan la entrega del código y no envían mensajes. El despliegue real, el proxy, los respaldos y su supervisión corresponden al operador.
+`reviews/auth.sqlite` and `reviews/auth.key` are private. Automated tests mock delivery and send no messages. The operator is responsible for actual hosting, the proxy, backups and monitoring.
 
-Alojar la app no ejecuta por sí solo un agente diariamente. La búsqueda necesita un entorno de ejecución y un planificador autorizados con las herramientas y sesiones necesarias.
+Hosting the app does not run an agent daily. Searches require an authorized execution environment and scheduler with the necessary tools and sessions.

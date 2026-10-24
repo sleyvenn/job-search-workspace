@@ -1,40 +1,37 @@
-# Empieza aquí
+# Start here
 
-Pásale el enlace a tu agente y dile:
+Give your agent the repository link and say:
 
-> Descarga este repositorio y úsalo como base para mi búsqueda de empleo. Monta la app y ayúdame a completar mi perfil y mis filtros.
+> Download this repository and use it as the base for my job search. Set up the app and help me complete my profile and preferences.
 
-El agente seguirá `docs/AGENT_SETUP.md`: descarga, arranca y abre la app. Tú solo aportas los datos y decisiones que falten.
+The agent follows `docs/AGENT_SETUP.md`: download, start and open the app. You provide only the missing facts and decisions.
 
-Si necesitas detallar el alcance, puedes ampliar el mensaje:
-
-```text
-Lee AGENTS.md y docs/WORKFLOW.md. Quiero usar esta app para buscar trabajo.
-Comprueba primero que puedes leer y escribir archivos, ejecutar Python,
-consultar ofertas actuales y, si llega el momento, usar los formularios oficiales.
-
-Inicializa mi espacio privado sin sobrescribir archivos existentes.
-Ayúdame a completar el perfil con hechos confirmados y los filtros de ubicación,
-modalidad, salario, idiomas, tipo de contrato y puestos que me interesan.
-Pregúntame solo lo que falte; no deduzcas experiencia de las ofertas.
-
-Busca una primera selección reciente, explica por qué encaja o por qué la descartas,
-registra las ofertas sin duplicados y prepara un PDF específico para cada selección.
-Abre la tabla y enséñame los PDF antes de presentar candidaturas.
-No envíes nada sin una instrucción mía que autorice ese paso.
-Si no tienes una capacidad, registra el bloqueo y completa el resto del trabajo.
-```
-
-Para continuar con otro agente:
+For a more specific scope, use:
 
 ```text
-Lee AGENTS.md, workspace/candidate.json, workspace/preferences.json,
-workspace/state.json, workspace/reviews/decisions.json y workspace/runs.json.
-Retoma el trabajo desde esos registros. No repitas envíos ni supongas autorizaciones.
-Comprueba los envíos inciertos antes de reintentar. Conserva todos los PDF existentes.
+Read AGENTS.md and docs/WORKFLOW.md. I want to use this app to find a job.
+First check that you can read and write files, run Python, research current
+openings and, when authorized, use official application forms.
+
+Initialize my private workspace without overwriting existing files.
+Help me complete my profile with confirmed facts and my preferences for
+location, work arrangement, salary, languages, contract type and roles.
+Ask only for missing information; do not infer experience from job requirements.
+
+Find an initial selection of recent jobs, explain why they fit or why you
+discard them, register them without duplicates and prepare a tailored PDF
+for each selected opportunity. Open the table and show me the PDFs.
+Do not submit anything without an instruction from me authorizing that step.
+If a capability is unavailable, record the blocker and complete independent work.
 ```
 
-Para una búsqueda recurrente, define primero con el agente el periodo, horario,
-límite diario y si está autorizado a enviar o solo preparar. Usa el servicio de
-programación de ese entorno y el contenido de `docs/DAILY_RUN.md`. Esta app no
-mantiene un agente ejecutándose ni evita que un ordenador apagado interrumpa su trabajo.
+To continue with another agent:
+
+```text
+Read AGENTS.md, workspace/candidate.json, workspace/preferences.json,
+workspace/state.json, workspace/reviews/decisions.json and workspace/runs.json.
+Resume from these records. Do not duplicate submissions or assume authorization.
+Check uncertain outcomes before retrying. Preserve all existing PDFs.
+```
+
+For recurring searches, agree on the period, schedule, daily limit and whether the agent may submit or only prepare. Use that environment's scheduler and `docs/DAILY_RUN.md`. This app does not keep an agent running or keep work going when its execution environment is switched off.

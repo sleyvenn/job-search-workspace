@@ -1,47 +1,49 @@
-# Datos de cada persona
+# Per-user data
 
-`workspace/` es privado. `--workspace /otra/ruta` permite elegir otra carpeta. Los ejemplos públicos no son el perfil del usuario.
+`workspace/` is private. Use `--workspace /another/path` to choose another folder. Distributed examples are not the user's profile.
 
-| Archivo o carpeta | Contenido |
+| File or folder | Contents |
 | --- | --- |
-| candidate.json | Identidad y contacto, idiomas, hechos confirmados, incógnitas y nombres privados que deben omitirse |
-| preferences.json | Ubicación, modalidad, salario, familias de puestos, fuentes y alcance de los envíos |
-| state.json | Ofertas, análisis resumido, versiones de CV, autorización y resultado observado |
-| analysis.json | Explicación adicional por ID de oferta: recomendación, riesgos y adaptación |
-| cv-versions.json | Índice de documentos registrados |
-| cv-content/ | Contenido del CV generado y referencias a los hechos del perfil |
-| documents/ | PDF con nombre nuevo por versión y SHA-256 |
-| receipts/ | Capturas de confirmaciones reales; pueden contener datos personales |
-| reviews/decisions.json | Notas y decisiones guardadas desde la app; revisión incremental e historial |
-| runs.json, reports/ | Ejecuciones e informes; un informe del CLI no acredita una búsqueda nueva |
-| trial.json | Condiciones de una prueba diaria autorizada, cuando exista |
-| runtime/ | PID, URL y registros del servidor local |
+| candidate.json | Identity, contact details, languages, confirmed facts, unknowns and private names to omit |
+| preferences.json | Location, work arrangement, salary, role families, sources and submission scope |
+| state.json | Opportunities, assessment summary, CV versions, authorization and observed outcomes |
+| analysis.json | Additional assessment by job ID: recommendation, gaps and tailoring plan |
+| cv-versions.json | Index of registered documents |
+| cv-content/ | Generated CV content and references to profile facts |
+| documents/ | PDFs with a new filename per version and SHA-256 hashes |
+| receipts/ | Screenshots of real confirmations; these may contain personal details |
+| reviews/decisions.json | App notes and decisions, incremental revision and history |
+| runs.json, reports/ | Runs and reports; a CLI report does not establish that a new search happened |
+| trial.json | Conditions of an authorized recurring trial, when applicable |
+| runtime/ | Local server PID, URL and logs |
 
-## Perfil
+## Profile
 
-Cada entrada de `facts` tiene un `id` estable, `text`, `verified` y `scope`. Usa `scope` para indicar la empresa concreta, trabajo independiente o formación. Solo los hechos con `verified: true` pueden ser fuente del generador de CV. Las preferencias por una tecnología y las ganas de aprender no son experiencia profesional.
+Each `facts` entry has a stable `id`, `text`, `verified` and `scope`. Scope identifies a specific employer, independent work or education. Only facts with `verified: true` can be sources for the CV generator. Interest in a technology and willingness to learn are not professional experience.
 
-`source_refs` referencia esos IDs en `examples/cv.demo.json`. Su validación comprueba que existen y están confirmados; la fidelidad de la redacción requiere revisión.
+`source_refs` in `examples/cv.demo.json` references these IDs. Validation checks that they exist and are confirmed; the accuracy of the wording still requires review.
 
-## Ofertas y documentos
+## Opportunities and documents
 
-Parte de `examples/job.demo.json` y utiliza `add-job`. El ID, URL pública, empresa, puesto, ubicación, modalidad, motivo y fecha de verificación son obligatorios. `external_ids` permite deduplicar una misma vacante entre LinkedIn y el ATS. Una fecha de revisión no sustituye la fecha de publicación.
+Start with `examples/job.demo.json` and use `add-job`. The ID, public URL, company, title, location, work arrangement, reasoning and verification date are required. `external_ids` helps deduplicate a vacancy across LinkedIn and its ATS. A review date is not a publication date.
 
-Un salario no publicado usa `minimum: null` y `maximum: null`. Los rangos se expresan en euros brutos anuales para empleo; si la oferta usa otra moneda o periodicidad, conserva la fuente y verifica la conversión antes de compararla. No reutilices estos campos para tarifas freelance.
+An unpublished salary uses `minimum: null` and `maximum: null`. Employment ranges are expressed in gross annual euros. If a posting uses another currency or period, preserve the source and verify conversion before comparison. Do not reuse these fields for freelance rates.
 
-`cv_prepared` es la versión propuesta; `cv_history` conserva las anteriores. Una candidatura enviada guarda por separado `cv_sent` y `cv_sha256`, además de la fecha, canal, respuestas y justificante. Preparar un nuevo CV no cambia el enviado.
+`cv_prepared` is the proposed version; `cv_history` preserves earlier ones. A submitted application separately records `cv_sent` and `cv_sha256`, timestamp, channel, answers and confirmation receipt. Preparing another CV does not change the submitted one.
 
-## Estados
+## States
 
-| Estado | Significado |
+| State | Meaning |
 | --- | --- |
-| pendiente | En análisis o preparación; la presencia de un PDF se muestra aparte |
-| reservada | Se aplaza por un motivo explícito |
-| descartada | Se decide no continuar, con razón |
-| bloqueada | Falta un dato, acceso o intervención necesaria |
-| incierta | No se pudo confirmar el resultado del formulario; comprobar antes de reintentar |
-| enviada | Hay confirmación observada registrada con PDF y captura |
+| pending | Under assessment or preparation; PDF availability is shown separately |
+| reserved | Deferred for an explicit reason |
+| discarded | A decision not to proceed, with a reason |
+| blocked | A required fact, session or intervention is missing |
+| uncertain | The form outcome could not be confirmed; check before retrying |
+| sent | An observed confirmation is recorded with the PDF and screenshot |
 
-La decisión del usuario y la revisión del CV están separadas del resultado del envío. Guardar «Priorizar» o «CV aprobado» no ejecuta un formulario ni concede por sí solo autorización para enviarlo.
+User decisions and CV review status are separate from submission outcomes. Selecting “Prioritize” or approving CV content neither sends a form nor grants submission authorization by itself.
 
-Usa los comandos para modificar ofertas y documentos. Lee las notas antes de actuar; no reconstruyas `decisions.json` desde otra versión. El servidor rechaza escrituras de una pestaña con revisión obsoleta. No ejecutes varios servidores sobre el mismo espacio privado.
+The initial release used Spanish state values. Those legacy values remain accepted when reading existing records and are normalized to English. Free-text notes, existing CVs, filenames, hashes and receipts are preserved; user data is not automatically translated.
+
+Use the commands to modify opportunities and documents. Read notes before acting; never rebuild `decisions.json` from a stale version. The server rejects writes from a tab with an outdated revision. Do not run multiple servers against the same private workspace.

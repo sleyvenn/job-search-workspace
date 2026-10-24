@@ -1,16 +1,16 @@
-# Arranque que realiza el agente
+# Setup performed by the agent
 
-El usuario ha dado el repositorio para que lo montes y lo uses. Resuelve tú la instalación y el arranque; evita pedirle que ejecute comandos que puedes ejecutar con tus herramientas.
+The user gave you this repository to set up and use. Handle installation and startup yourself; do not give the user a terminal checklist when your tools can do the work.
 
-1. Lee README.md y AGENTS.md. Si has descargado un ZIP, localiza la carpeta que contiene run.py; si ya hay un checkout, úsalo sin sobrescribirlo.
-2. Localiza Python 3.11+ en el entorno de ejecución, incluido el runtime que proporcione tu agente. `python`, `python3` o `py -3` pueden ser el ejecutable. Si no existe, instala desde una fuente oficial cuando tengas autorización y capacidades; si no puedes, explica ese bloqueo concreto.
-3. Ejecuta `python run.py bootstrap`. Crea el espacio privado si falta, elige un puerto libre y arranca la app. Si ya existe, conserva sus datos y reutiliza su servidor. Guarda la URL que devuelve.
-4. Abre esa URL con el navegador disponible para que el usuario vea la app. No abras una nueva instancia en cada mensaje. `python run.py doctor` informa sobre el estado y las funciones de PDF disponibles.
-5. Lee el perfil y las preferencias actuales. Si están vacíos, recoge primero experiencia real, ubicación/modalidad, salario mínimo, idiomas, autorización laboral y puestos de interés. Usa el CV o perfil que el usuario haya autorizado a leer. Agrupa las preguntas y pregunta solo lo que falte.
-6. Guarda los hechos confirmados en candidate.json con IDs estables. Distingue el trabajo de cada empresa del trabajo independiente. Guarda las preferencias y deja el modo de envío en revisión salvo que el usuario autorice más.
-7. Comprueba tus capacidades para buscar ofertas, manejar las sesiones autorizadas y ver documentos. Instala `requirements-pdf.txt` en un entorno local del proyecto si necesitas el generador; no necesita API keys. Poppler es opcional para la vista previa, y puede sustituirse por un visor para la revisión visual.
-8. Sigue docs/WORKFLOW.md: busca, analiza, registra, prepara y muestra. Completa lo que puedas y registra los bloqueos concretos. No envíes candidaturas hasta tener autorización.
+1. Read README.md and AGENTS.md. If you downloaded a ZIP, locate the folder containing run.py. Reuse an existing checkout without overwriting it.
+2. Find Python 3.11+ in the environment, including any runtime provided by your agent. The command may be `python`, `python3` or `py -3`. If unavailable, install from an official source when authorized and supported; otherwise explain that specific blocker.
+3. Run `python run.py bootstrap`. It creates a private workspace if needed, chooses an available port and starts the app. It preserves existing data and reuses a matching server. Keep the returned URL.
+4. Open that URL with your available browser so the user can see the app. Do not start a new instance on every message. `python run.py doctor` reports workspace and PDF capabilities.
+5. Read the current profile and preferences. If empty, collect actual experience, location/work arrangement, minimum salary, languages, work authorization and target roles. Use a CV or profile the user has authorized you to read. Group questions and ask only for missing facts.
+6. Store confirmed facts in candidate.json with stable IDs. Distinguish each employer's experience from independent work. Save preferences and keep submissions in review mode unless the user authorizes more. Confirm the language for application documents; the app's English interface does not require every CV to be in English.
+7. Check your ability to research jobs, use authorized portal sessions and inspect documents. Install `requirements-pdf.txt` in a project-local environment if you need the generator; it needs no API keys. Poppler is optional for image previews, and another viewer can provide visual review.
+8. Follow docs/WORKFLOW.md: search, evaluate, register, prepare and show. Complete available work and record concrete blockers. Do not submit applications without authorization.
 
-La única intervención inicial del usuario debería ser aportar datos que no tienes y tomar las decisiones que le corresponden. Los comandos internos son una herramienta del agente.
+The user's initial involvement should be limited to facts you do not have and decisions that belong to them. Internal commands are tools for the agent.
 
-Si el usuario pide solo ver el producto, usa `python run.py demo` en vez de introducir datos personales. Para continuar un trabajo existente, lee sus registros y notas antes de actuar.
+If the user only wants to see the product, use `python run.py demo` instead of collecting personal details. When continuing existing work, read its records and notes before acting.

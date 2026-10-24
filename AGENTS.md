@@ -19,7 +19,7 @@ This project supports two activities: maintaining the application and operating 
 - Render and visually inspect every PDF page before submission. Use a new version for edits; never overwrite a sent PDF.
 - Default to preparation and review. Submit only within a real, current user authorization; record its basis with `approve`. Do not manufacture approval notes or broaden it to payments, contracts, messaging or unrelated data.
 - Run `check-ready` immediately before the external form. Follow the agent/browser's own approval requirements. Unknown mandatory facts, closed sessions, CAPTCHAs or legal confirmations that require intervention are blockers, not invitations to guess.
-- Only `record-application` after observing actual confirmation. Supply the exact uploaded PDF name/hash, timestamp, channel, relevant answers and a real screenshot. If uncertain, use `record-outcome --status incierta` and check the portal before retrying.
+- Only `record-application` after observing actual confirmation. Supply the exact uploaded PDF name/hash, timestamp, channel, relevant answers and a real screenshot. If uncertain, use `record-outcome --status uncertain` and check the portal before retrying.
 - Provide an honest report even with zero sends. Separate prepared from sent. Never fabricate employer responses or infer rejection from silence.
 
 ## Development and publication

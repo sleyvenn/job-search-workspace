@@ -1,31 +1,31 @@
-# Instrucción para una búsqueda recurrente
+# Recurring search instruction
 
-Este texto se entrega al programador del agente que elija el usuario. No activa ninguna automatización al instalar el repositorio.
+Give this text to the scheduler in the user's chosen agent environment. Installing the repository does not activate any automation.
 
 ```text
-Trabaja en este repositorio y lee AGENTS.md y docs/WORKFLOW.md.
-Comprueba la fecha, el periodo autorizado y si ya existe un registro de hoy.
-Lee el perfil, preferencias, estado, notas e informes antes de actuar.
+Work in this repository and read AGENTS.md and docs/WORKFLOW.md.
+Check today's date, the authorized period and whether today's run is already recorded.
+Read the profile, preferences, application state, notes and reports before acting.
 
-Busca ofertas recientes en las fuentes autorizadas. Verifica fecha real,
-ubicación, modalidad, condiciones de contratación y salario. Deduplica antes
-de preparar documentos. No fuerces una cuota si no hay encaje.
+Search for recent jobs in authorized sources. Verify actual dates, location,
+work arrangement, hiring eligibility and salary. Deduplicate before preparing
+documents. Do not force a quota when opportunities do not fit.
 
-Prepara CV específicos basados en hechos confirmados, revisa todas sus páginas
-y conserva cada versión con su hash. Presenta candidaturas únicamente si la
-instrucción vigente del usuario autoriza envíos dentro de este periodo y límite.
-Registra esa autorización por oferta y comprueba check-ready antes de actuar.
-Si el usuario solo autorizó preparación, deja los documentos para revisión.
+Prepare tailored CVs from confirmed facts, review every page and preserve each
+version with its hash. Submit only if the user's current instruction permits
+applications within this period and limit. Record that authorization per job
+and run check-ready before acting. If only preparation is authorized, leave
+the documents for review.
 
-Ante una sesión cerrada, un dato desconocido o una intervención obligatoria,
-registra el bloqueo y continúa con otras ofertas. Ante un envío incierto,
-comprueba si ya existe antes de reintentar. Nunca inventes una confirmación.
+If a session is closed, a fact is unknown or intervention is required, record
+the blocker and continue with other jobs. If submission is uncertain, check
+whether it already exists before retrying. Never invent confirmation.
 
-Genera el informe con enlaces a oferta, motivo, PDF realmente usado y resultado.
-Registra qué fuentes se consultaron y sus limitaciones en workspace/runs.json,
-usando escrituras atómicas y conservando los registros previos. Distingue una
-búsqueda sin coincidencias de una ejecución que no llegó a realizarse.
-Termina al acabar el periodo y no renueves por tu cuenta.
+Create a report linking each job, the reasoning, the exact CV used and the result.
+Record consulted sources and limitations in workspace/runs.json using atomic
+writes and preserving prior entries. Distinguish a search with no matches
+from a run that could not actually take place.
+Stop at the end of the authorized period; do not renew it yourself.
 ```
 
-La app puede estar alojada en un servidor mientras el agente corre en otro equipo. Son procesos distintos. Para que el trabajo continúe con el ordenador apagado hace falta un entorno del agente que siga funcionando, con las herramientas y sesiones necesarias. No basta con alojar la tabla.
+The app can run on a server while the agent runs elsewhere. These are separate processes. Work can continue with the user's computer off only when the agent has another running environment with the required tools and sessions. Hosting the table alone does not provide that capability.

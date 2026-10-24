@@ -27,7 +27,7 @@ class AuthStore:
     def __init__(self, directory, telegram_token, telegram_chat, deliver=None, clock=time.time,
                  public_url='', bot_name='Telegram'):
         if not telegram_token or not telegram_chat:
-            raise RuntimeError('Telegram no está configurado. El acceso público permanece cerrado.')
+            raise RuntimeError('Telegram is not configured. Public access remains disabled.')
         directory = Path(directory)
         directory.mkdir(parents=True, exist_ok=True, mode=0o700)
         self.database = directory / 'auth.sqlite'
@@ -49,7 +49,7 @@ class AuthStore:
                     handle.write(secrets.token_bytes(32))
         self.key = key_file.read_bytes()
         if len(self.key) != 32:
-            raise RuntimeError('Clave de autenticación no válida.')
+            raise RuntimeError('Invalid authentication key.')
         with self._db() as db:
             db.executescript('''
                 CREATE TABLE IF NOT EXISTS challenges (
@@ -79,10 +79,10 @@ class AuthStore:
     def _telegram(self, code):
         body = json.dumps({
             'chat_id': self.telegram_chat,
-            'text': (f'{self.bot_name} · Acceso a {self.public_url}\n\n'
-                     f'Tu código es: {code}\n\n'
-                     'Caduca en 5 minutos y solo sirve una vez.\n'
-                     'Si no lo has solicitado, ignora este mensaje.'),
+            'text': (f'{self.bot_name} · Sign in to {self.public_url}\n\n'
+                     f'Your code is: {code}\n\n'
+                     'It expires in 5 minutes and can only be used once.\n'
+                     'If you did not request this, ignore this message.'),
             'disable_notification': False,
         }).encode()
         request = Request(f'https://api.telegram.org/bot{self.telegram_token}/sendMessage',
@@ -94,7 +94,7 @@ class AuthStore:
                 raise ValueError('Telegram delivery failed')
         except Exception:
             # Network errors can contain the secret-bearing Telegram URL.
-            raise AuthError('Telegram no ha podido enviar el código. Inténtalo de nuevo en un minuto.', 502) from None
+            raise AuthError('Telegram could not send the code. Try again in a minute.', 502) from None
 
     def request_code(self, previous=None):
         stamp = self.clock()
@@ -106,9 +106,9 @@ class AuthStore:
             db.execute('DELETE FROM sessions WHERE expires < ?', (stamp,))
             count, last = db.execute('SELECT COUNT(*), MAX(created) FROM requests').fetchone()
             if count >= 10:
-                raise AuthError('Se han solicitado demasiados códigos. Vuelve a intentarlo dentro de una hora.', 429)
+                raise AuthError('Too many codes have been requested. Try again in an hour.', 429)
             if last is not None and stamp - last < 60:
-                raise AuthError('Espera un minuto antes de pedir otro código.', 429)
+                raise AuthError('Wait one minute before requesting another code.', 429)
             db.execute('INSERT INTO requests VALUES (?)', (stamp,))
             db.commit()
             self.deliver(code)
@@ -120,19 +120,19 @@ class AuthStore:
 
     def verify(self, challenge, code):
         if not isinstance(code, str) or len(code) != 6 or not code.isascii() or not code.isdigit():
-            raise AuthError('Introduce los seis números del mensaje de Telegram.')
+            raise AuthError('Enter the six digits from the Telegram message.')
         if not challenge or len(challenge) > 128:
-            raise AuthError('Pide un código desde este navegador antes de continuar.', 401)
+            raise AuthError('Request a code from this browser before continuing.', 401)
         stamp = self.clock()
         failure = None
         with self.lock, self._db() as db:
             row = db.execute('SELECT code, expires, attempts FROM challenges WHERE id = ?',
                              (self.digest(challenge),)).fetchone()
             if not row or row[1] <= stamp or row[2] >= 5:
-                failure = 'El código ha caducado o ya no es válido. Solicita uno nuevo.'
+                failure = 'The code has expired or is no longer valid. Request a new one.'
             elif not hmac.compare_digest(row[0], self.digest(challenge + ':' + code)):
                 db.execute('UPDATE challenges SET attempts = attempts + 1 WHERE id = ?', (self.digest(challenge),))
-                failure = 'El código no coincide. Comprueba el mensaje de Telegram.'
+                failure = 'The code does not match. Check your Telegram message.'
             else:
                 db.execute('DELETE FROM challenges WHERE id = ?', (self.digest(challenge),))
                 token = secrets.token_urlsafe(32)

@@ -1,90 +1,90 @@
-# Flujo operativo
+# Operating workflow
 
-Los ejemplos siguientes usan una terminal en la raíz del repositorio. En algunos sistemas el ejecutable se llama `python3`. Para otro espacio, coloca `--workspace /ruta/privada` antes del subcomando.
+Run these commands from the repository root. Some systems use `python3`. For a different private folder, put `--workspace /private/path` before the subcommand.
 
-## 1. Perfil y filtros
+## 1. Profile and preferences
 
-Ejecuta `python run.py init`. Edita `workspace/candidate.json` y `workspace/preferences.json` con datos confirmados. Cada hecho tiene `id`, `text`, `verified` y `scope`; este último distingue empresa, proyecto independiente y formación. Registra lo que falta en `unknowns`.
+Run `python run.py bootstrap`, or `python run.py init` if startup is being handled separately. Complete `workspace/candidate.json` and `workspace/preferences.json` with confirmed information. Each fact has an `id`, `text`, `verified` and `scope`, distinguishing employer experience, independent work and education. Store missing information in `unknowns`.
 
-Pregunta por ubicación, modalidad, autorización de trabajo, idiomas, salario y puestos cuando falten. Comprueba también si el usuario busca empleo, freelance o ambos. Mantén las autorizaciones de envío separadas de sus preferencias.
+Ask about location, work arrangement, work authorization, languages, salary and target roles when missing. Confirm whether the user wants employment, freelance work or both. Keep permission to submit separate from preferences. Choose the application language based on the user's instructions and the job, not the interface language.
 
-## 2. Búsqueda y análisis
+## 2. Search and assessment
 
-Consulta las fuentes permitidas y verifica las fichas. Usa las últimas 24 horas cuando haya suficientes resultados y prioriza la última hora cuando el portal lo permita. Conserva la fecha realmente observada, la fecha de revisión, el enlace público y el ID del ATS si existe.
+Use authorized sources and verify each full posting. Search the last 24 hours when useful and prioritize the last hour where supported. Record the actual publication information, review date, public link and ATS ID if available.
 
-Prepara un JSON siguiendo `examples/job.demo.json`, con motivo, fortalezas acreditadas, dudas y siguiente paso:
+Prepare a JSON file based on `examples/job.demo.json`, with reasons, supported strengths, gaps and next steps:
 
 ```sh
 python run.py add-job --file workspace/offer.json
 ```
 
-Si devuelve un duplicado, retoma la oferta existente. No cambies el ID para esquivar el control.
+If the command identifies a duplicate, resume the existing record. Do not change IDs to bypass the check.
 
-## 3. CV adaptado
+## 3. Tailored CV
 
-Selecciona y ordena hechos reales. Para el generador incluido, prepara un JSON como `examples/cv.demo.json`. Cada afirmación usa `source_refs` con IDs del perfil:
+Select and order real facts. For the included generator, prepare content like `examples/cv.demo.json`. Each claim uses `source_refs` containing profile fact IDs:
 
 ```sh
 python -m pip install -r requirements-pdf.txt
-python run.py create-cv --job ats-123 --file workspace/cv-draft.json --why "Destacar integraciones y trabajo con usuarios" --language es
+python run.py create-cv --job ats-123 --file workspace/cv-draft.json --why "Highlight integrations and user-facing work" --language en
 ```
 
-Las referencias son una ayuda de trazabilidad: un texto puede citar una fuente válida y aun así exagerarla. Revisa que títulos, fechas, nivel y alcance coincidan con la evidencia.
+References provide traceability, but text can cite a valid source and still overstate it. Check that titles, dates, proficiency and scope match the evidence.
 
-Si ya tienes un PDF de otra herramienta:
+For a PDF generated elsewhere:
 
 ```sh
-python run.py attach-cv --job ats-123 --file /ruta/cv.pdf --why "Adaptación revisada para esta oferta" --language es
+python run.py attach-cv --job ats-123 --file /path/cv.pdf --why "Reviewed adaptation for this opportunity" --language en
 ```
 
-Los documentos se copian con nombre nuevo a `workspace/documents/`. Abre **todas** las páginas. La app muestra una vista previa de la primera y permite abrir o descargar el original completo. Cada adaptación conserva su hash y las versiones anteriores.
+Documents are copied under a new filename in `workspace/documents/`. Inspect **every page**. The app previews page one and offers the complete original for opening or download. Each version retains its hash and earlier versions.
 
-## 4. Revisión y autorización
+## 4. Review and authorization
 
-Abre `python run.py serve`. El usuario puede revisar la ficha, el PDF y escribir notas. Priorizar una oferta o aprobar el contenido del CV no equivale por sí solo a autorizar un envío.
+The user can review the job, PDF and notes in the app. Prioritizing a job or approving CV content does not itself authorize submission.
 
-Solo después de una instrucción real del usuario:
+Only after a real user instruction:
 
 ```sh
-python run.py approve --job ats-123 --note "Instrucción concreta del usuario que autoriza este envío"
+python run.py approve --job ats-123 --note "The actual user instruction authorizing this submission"
 python run.py check-ready --job ats-123
 ```
 
-La autorización registrada queda vinculada al PDF y caduca a las 24 horas. Cambiar de versión exige registrar de nuevo una autorización vigente. El agente debe respetar además las condiciones y límites de la instrucción del usuario: este comando no puede certificar su consentimiento por sí mismo.
+The recorded authorization is linked to the PDF and expires after 24 hours. A new version requires recording a current authorization again. Respect the user's actual conditions and limits: the command cannot certify consent by itself.
 
-## 5. Formulario y resultado
+## 5. Application form and outcome
 
-El agente abre el formulario oficial con sus herramientas autorizadas. Verifica el PDF elegido y completa únicamente hechos confirmados. No acepta contratos, gastos o permisos adicionales por inferencia.
+Use the official form through the agent's authorized tools. Verify the selected PDF and provide only confirmed facts. Do not infer permission for contracts, expenses or additional access.
 
-Si hay un bloqueo:
-
-```sh
-python run.py record-outcome --job ats-123 --status bloqueada --reason "La pregunta obligatoria requiere un dato no confirmado"
-```
-
-Si no está claro si se envió:
+If blocked:
 
 ```sh
-python run.py record-outcome --job ats-123 --status incierta --reason "El portal no mostró confirmación; comprobar solicitudes antes de reintentar"
+python run.py record-outcome --job ats-123 --status blocked --reason "A required question needs an unconfirmed fact"
 ```
 
-Después de ver una confirmación real, guarda una captura y registra los datos exactos:
+If the submission outcome is unclear:
 
 ```sh
-python run.py record-application --job ats-123 --cv ats-123_YYYY-MM-DD_v1.pdf --sha256 HASH_REAL_DEL_PDF --receipt workspace/confirmation.png --confirmation "Texto real observado en el portal" --channel "ATS de la empresa" --at FECHA_ISO_CON_ZONA
+python run.py record-outcome --job ats-123 --status uncertain --reason "No confirmation appeared; check existing applications before retrying"
 ```
 
-`--answers workspace/answers.json` añade respuestas relevantes del formulario. No guardes contraseñas, códigos de acceso ni URLs temporales. Un segundo registro del mismo envío es idempotente; uno con otro PDF genera un conflicto.
+After observing a real confirmation, save a screenshot and record exact details:
 
-Este comando acredita que se ha registrado una observación, no que el programa haya enviado la solicitud ni que una captura pruebe por sí sola su contenido. Nunca lo uses para simular actividad. Si una confirmación llega tarde, el hecho real se puede registrar y se señala la falta de autorización previa guardada en vez de ocultarlo.
+```sh
+python run.py record-application --job ats-123 --cv ats-123_YYYY-MM-DD_v1.pdf --sha256 ACTUAL_PDF_HASH --receipt workspace/confirmation.png --confirmation "Actual confirmation text observed on the portal" --channel "Employer ATS" --at ISO_TIMESTAMP_WITH_TIMEZONE
+```
 
-## 6. Informe y continuidad
+`--answers workspace/answers.json` adds relevant form answers. Never store passwords, login codes or temporary access URLs. Recording the same submission twice is idempotent; conflicting PDF details are rejected.
+
+This command records an observation. It does not prove that the program submitted an application or that a screenshot's contents are authentic. Never use it to simulate activity. Late confirmations can be recorded, with a note if prior authorization is missing, rather than hiding an observed submission.
+
+## 6. Reporting and continuity
 
 ```sh
 python run.py validate
 python run.py report
 ```
 
-Informa sobre revisadas, preparadas, enviadas, descartadas y bloqueadas con sus motivos. La app enlaza el último informe. Los informes de este comando resumen los registros existentes; no prueban que se haya ejecutado una búsqueda ese día.
+Report reviewed, prepared, submitted, discarded and blocked jobs with reasons. The app links to the latest report. Generated reports summarize existing records; they do not prove that a search happened that day.
 
-Antes de otra sesión, vuelve a leer los datos y las notas. Para búsquedas recurrentes usa `DAILY_RUN.md` con un periodo y un límite autorizados.
+Before another session, read the records and user notes again. For recurring work, use `DAILY_RUN.md` with an authorized period and limit.

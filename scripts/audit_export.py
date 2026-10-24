@@ -45,7 +45,7 @@ def audit(root=ROOT):
         if not file.is_file():
             errors.append('Missing public file: '+name); continue
         if name in BINARY_FILES: continue
-        if path.suffix not in TEXT_SUFFIXES and name not in {'LICENSE', '.gitignore', '.env.example', 'public-files.txt'}:
+        if path.suffix not in TEXT_SUFFIXES and name not in {'LICENSE', '.gitattributes', '.gitignore', '.env.example', 'public-files.txt'}:
             errors.append('Unreviewed file type: '+name); continue
         try: text = file.read_text(encoding='utf-8-sig')
         except UnicodeDecodeError:

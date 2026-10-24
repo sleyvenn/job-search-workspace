@@ -7,7 +7,7 @@ import tempfile
 import threading
 import unittest
 
-from lib.workspace import Workspace, read
+from lib.workspace import Workspace, read, save
 
 BASE = Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(BASE/'app'))
@@ -77,7 +77,7 @@ class HttpTests(unittest.TestCase):
         self.assertEqual(self.request('/files/../candidate.json')[0],404)
         self.assertEqual(self.request('/files/%2e%2e%2fcandidate.json')[0],404)
         self.assertEqual(self.request('/.env')[0],404)
-        body = {'revision':data['reviews']['revision'],'decision':'priorizar','cv_review':'pendiente',
+        body = {'revision':data['reviews']['revision'],'decision':'prioritize','cv_review':'pending',
                 'cv_reference':self.cv['sha256'],'notes':'Fictional test note.'}
         self.assertEqual(self.request('/api/jobs/'+self.job['id'],body)[0],403)
         status,raw,_ = self.request('/api/jobs/'+self.job['id'],body,{'X-Radar-Token':csrf})
@@ -87,6 +87,25 @@ class HttpTests(unittest.TestCase):
         self.assertEqual(notes['jobs'][self.job['id']]['notes'],'Fictional test note.')
         self.assertEqual(self.request('/auth/logout',{}, {'X-Radar-Token':csrf})[0],200)
         self.assertEqual(self.request('/api/data')[0],401)
+
+    def test_existing_notes_and_legacy_clients_survive_language_change(self):
+        path=self.workspace.root/'reviews/decisions.json'
+        reviews=read(path)
+        reviews['jobs'][self.job['id']]={'decision':'priorizar','cv_review':'aprobado',
+                                       'cv_reference':self.cv['sha256'],'notes':'Keep this original note.'}
+        save(path,reviews)
+        original=path.read_bytes()
+        self.login()
+        data=json.loads(self.request('/api/data')[1])
+        entry=data['reviews']['jobs'][self.job['id']]
+        self.assertEqual(entry['decision'],'prioritize')
+        self.assertEqual(entry['cv_review'],'approved')
+        self.assertEqual(path.read_bytes(),original)
+        body={**entry,'decision':'reservar','cv_review':'pendiente','revision':reviews['revision']}
+        self.assertEqual(self.request('/api/jobs/'+self.job['id'],body,{'X-Radar-Token':data['csrf']})[0],200)
+        stored=read(path)['jobs'][self.job['id']]
+        self.assertEqual(stored['decision'],'reserve')
+        self.assertEqual(stored['notes'],'Keep this original note.')
 
 
 if __name__ == '__main__': unittest.main()

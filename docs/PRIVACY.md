@@ -1,24 +1,24 @@
-# Compartir código, conservar los datos en privado
+# Share the code, keep personal records private
 
-El repositorio distribuye la app, las instrucciones y una demo ficticia. Cada persona crea su propio espacio. No hay telemetría ni un backend central que reciba candidaturas.
+The repository distributes the app, instructions and a fictional demo. Each person creates their own workspace. There is no telemetry or central backend receiving applications.
 
-La app local no hace llamadas a un proveedor de IA. El agente elegido sí puede procesar los archivos que se le proporcionan según su propio servicio y configuración. Al presentar una candidatura, el portal recibe los datos y documentos enviados. Con acceso remoto opcional, Telegram recibe el código de acceso y la URL del sitio.
+The local app does not call an AI provider. Your chosen agent may process the files you give it according to that service and its configuration. Application portals receive the details and documents submitted to them. With optional remote access, Telegram receives the login code and site URL.
 
-No subas a Git `workspace/`, CV reales, capturas, notas, informes, `.env`, sesiones, claves ni copias de seguridad. `.gitignore` ayuda, pero no protege archivos ya rastreados ni archivos copiados a otra carpeta. Una captura de pantalla también puede contener datos personales.
+Never commit `workspace/`, real CVs, receipts, notes, reports, `.env`, sessions, keys or backups. `.gitignore` helps but does not protect already tracked files or copies placed elsewhere. Screenshots can contain personal details too.
 
-## Exportación
+## Source export
 
-`public-files.txt` enumera exactamente los archivos distribuibles. Para revisar y crear un ZIP:
+`public-files.txt` explicitly lists distributable files. To audit and create a ZIP:
 
 ```sh
 python scripts/audit_export.py
 python scripts/audit_export.py --zip dist/job-search-workspace.zip
 ```
 
-El auditor rechaza rutas privadas o inesperadas, enlaces simbólicos, algunos patrones de credenciales y archivos rastreados fuera de la lista. El ZIP incluye solo esa lista; falla si el ZIP de destino ya existe. Estos controles no certifican por sí solos que cualquier texto o imagen sea anónimo: revisa las modificaciones antes de publicar, especialmente ejemplos, PDF y capturas.
+The audit rejects private or unexpected paths, symbolic links, some credential patterns and tracked files outside the list. The ZIP includes only listed files and refuses to replace an existing archive. These checks alone cannot prove that every text or image is anonymous: inspect changes before publishing, especially examples, PDFs and screenshots.
 
-## Datos locales
+## Local storage
 
-El servidor escucha en `127.0.0.1`. El uso local presupone un equipo y una cuenta de sistema confiables. No publiques ese puerto directamente ni copies una instancia personal como demo pública.
+The server binds to `127.0.0.1`. Local use assumes a trusted computer and operating-system account. Do not expose that port directly or publish a copy of a personal workspace as a demo.
 
-Los datos del espacio no están cifrados por esta app. Usa los permisos y cifrado del sistema para protegerlos. Para una copia de seguridad coherente, detén el servidor y cualquier agente que escriba, y copia el espacio privado completo a un destino privado. Si ya se publicó un secreto, retirarlo del último commit no lo revoca: rótalo y revisa el historial.
+The app does not encrypt workspace files. Use operating-system permissions and encryption. For a consistent backup, stop the server and any agents writing to the workspace, then copy the entire private folder to a private destination. Removing a published secret from the latest commit does not revoke it: rotate the credential and review the history.
